@@ -13,9 +13,14 @@ public class MiCanvas extends Canvas {
 		this.actores = actores;
 	}
 	
+	/**
+	 * Sobreescribir el método paint para tener el control sobre lo que se va a pintar en pantalla.
+	 */
+	@Override
 	public void paint(Graphics g) {
+		//Asignar un color al fondo
 		this.setBackground(Color.GRAY);
-		
+		//Pintar cad uno de los actores
 		for (Actor a : this.actores) {
 			a.paint(g);
 		}

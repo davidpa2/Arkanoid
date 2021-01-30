@@ -5,18 +5,29 @@ import java.awt.Graphics;
 public abstract class Actor {
 	
 	protected int x, y; 
-	protected int ancho = 30, alto = 30;
+	protected int ancho, alto;
+	protected int velocidadX = 0;
 
 	public Actor() {
 	}
 
-	public Actor(int x, int y) {
+	//Constructor de Actor
+	public Actor(int x, int y, int ancho, int alto) {
 		super();
 		this.x = x;
 		this.y = y;
+		this.ancho = ancho;
+		this.alto = alto;
 	}
 	
+	//Métodos abstractos de Actor que convierten la clase en abstracta:
+	/*
+	 * Método que permite que los subtipos de actor se pinten
+	 */
 	public abstract void paint(Graphics g);
+	/*
+	 * Método que permite que los subtipos de actor realicen sus acciones
+	 */
 	public abstract void actua();
 
 	
@@ -54,6 +65,14 @@ public abstract class Actor {
 
 	public void setAlto(int alto) {
 		this.alto = alto;
+	}
+
+	public int getVelocidadX() {
+		return velocidadX;
+	}
+
+	public void setVelocidadX(int velocidadX) {
+		this.velocidadX = velocidadX;
 	}
 	
 

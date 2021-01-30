@@ -5,42 +5,69 @@ import java.awt.Graphics;
 
 public class Ladrillo extends Actor {
 
-	private String nombre; 
+	//Antes era String nombre;
+	private int numLadrillo; 
+	private Color colores;
 
 	public Ladrillo() {
 	}
 
-	public Ladrillo(int x, int y, String nombre) {
-		super(x, y);
-		this.nombre = nombre;
+	/**
+	 * Constructor con todos los parámetros de Ladrillo
+	 * @param x
+	 * @param y
+	 * @param alto
+	 * @param ancho
+	 * @param numLadrillo
+	 * @param colores
+	 */
+	public Ladrillo(int x, int y, int alto, int ancho, int numLadrillo, Color colores) {
+		super(x, y, alto, ancho);
+		this.numLadrillo = numLadrillo;
+		this.colores = colores;
 	}
 
+	
+	//Sobreescritura del método paint para que los ladrillos puedan ser pintados
+	@Override
+	public void paint(Graphics g) {
+		g.setColor(colores);
+		g.fillRect(this.x, this.y, this.ancho, this.alto);
+		
+	}
+
+	//Sobreescritura del método actúa, para que los ladrillos puedan actuar
+	@Override
+	public void actua() {
+		
+	}
 	
 	/**
 	 * Getters y setters
 	 * @return
 	 */
-	public String getNombre() {
-		return nombre;
+	public int getnumLadrillo() {
+		return numLadrillo;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setnumLadrillo(int numLadrillo) {
+		this.numLadrillo = numLadrillo;
 	}
 
-	@Override
-	public void paint(Graphics g) {
-		g.setColor(Color.RED);
-		g.fillRect(this.x, this.y, this.ancho, this.alto);
-		
+	public int getNumLadrillo() {
+		return numLadrillo;
 	}
 
-	@Override
-	public void actua() {
-		// TODO Auto-generated method stub
-		
+	public void setNumLadrillo(int numLadrillo) {
+		this.numLadrillo = numLadrillo;
 	}
 
-	
+	public Color getColores() {
+		return colores;
+	}
+
+	public void setColores(Color colores) {
+		this.colores = colores;
+	}
 	
 }

@@ -13,33 +13,35 @@ public class Pelota extends Actor {
 		
 	}
 
-	public Pelota(int x, int y, String nombre) {
-		super(x, y);
+	//Constructor con todos los parámetros de Pelota
+	public Pelota(int x, int y, int ancho, int alto, String nombre) {
+		super(x, y, ancho, alto);
 		this.nombre = nombre;
 	}
 	
+	//Sobreescritura del método paint para permitir que la Pelota se pinte
 	@Override
 	public void paint(Graphics g) {
-		g.setColor(Color.YELLOW);
+		g.setColor(Color.BLACK);
 		g.fillOval(this.x, this.y, this.ancho, this.alto);
 	}
 	
 	@Override
 	/**
-	 * 
+	 * Método actua con el que la pelota rebotará
 	 */
 	public void actua() {
 		// El monstruo se mueve de manera horizontal, en cada FPS
 		this.x += this.velocidadX;
 		// Si el monstruo abandona la escena por la izquierda o la derecha, rebota
-		if (this.x < 0 || this.x > 800) {
+		if (this.x < 0 || (this.x + this.ancho) > Arkanoid.getInstance().getCanvas().getWidth()) {
 			this.velocidadX = -this.velocidadX;
 		}
 		
 		// Copiamos el esquema anterior para el movimiento vertical
 		this.y += this.velocidadY;
 		// Si el monstruo abandona la escena por la izquierda o la derecha, rebota
-		if (this.y < 0 || this.y > 600) {
+		if (this.y < 0 || (this.y + this.alto) > Arkanoid.getInstance().getCanvas().getHeight()){
 			this.velocidadY = -this.velocidadY;
 		}
 		
