@@ -29,6 +29,14 @@ public abstract class Actor {
 	 * Método que permite que los subtipos de actor realicen sus acciones
 	 */
 	public abstract void actua();
+	
+	/**
+	 * Método que se podrá sobrescribir en los subtipos para decidir la acción a realizar al colisionar
+	 * con otro actor
+	 * @param a
+	 */
+	public void colisionaCon(Actor a) {
+	}
 
 	
 	/**

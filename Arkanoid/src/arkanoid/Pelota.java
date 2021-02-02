@@ -5,6 +5,7 @@ import java.awt.Graphics;
 
 public class Pelota extends Actor {
 	
+	private static int VELOCIDAD_PIXELS_POR_FRAME = 5;
 	private String nombre; 
 	private int velocidadX = -5;
 	private int velocidadY = -5;
@@ -45,6 +46,18 @@ public class Pelota extends Actor {
 			this.velocidadY = -this.velocidadY;
 		}
 		
+	}
+	
+	/**
+	 * Este método se disparará cuando un actor colisione con el disparo
+	 */
+	@Override
+	public void colisionaCon(Actor a) {
+		super.colisionaCon(a);
+		// Si colisionamos con monstruo, eliminamos el disparo
+		if (a instanceof Pelota) {
+			Arkanoid.getInstance().eliminaActor(this);
+		}
 	}
 
 	

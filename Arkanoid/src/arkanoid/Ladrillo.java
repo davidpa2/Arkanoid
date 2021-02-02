@@ -3,6 +3,7 @@ package arkanoid;
 import java.awt.Color;
 import java.awt.Graphics;
 
+
 public class Ladrillo extends Actor {
 
 	//Antes era String nombre;
@@ -40,6 +41,18 @@ public class Ladrillo extends Actor {
 	@Override
 	public void actua() {
 		
+	}
+	
+	/**
+	 * Este método se disparará cuando un actor colisione con el monstruo
+	 */
+	@Override
+	public void colisionaCon(Actor a) {
+		super.colisionaCon(a);
+		// Si colisionamos con un player o un disparo, eliminamos al monstruo
+		if (a instanceof Pelota) {
+			Arkanoid.getInstance().eliminaActor(this);
+		}
 	}
 	
 	/**
