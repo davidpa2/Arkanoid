@@ -5,7 +5,6 @@ import java.awt.Graphics;
 
 public class Pelota extends Actor {
 	
-	private static int VELOCIDAD_PIXELS_POR_FRAME = 5;
 	private String nombre; 
 	private int velocidadX = -5;
 	private int velocidadY = -5;
@@ -15,9 +14,10 @@ public class Pelota extends Actor {
 	}
 
 	//Constructor con todos los parámetros de Pelota
-	public Pelota(int x, int y, int ancho, int alto, String nombre) {
-		super(x, y, ancho, alto);
-		this.nombre = nombre;
+	public Pelota(int x, int y, int alto, int ancho) {
+		super(x, y);
+		this.alto = alto;
+		this.ancho = ancho;
 	}
 	
 	//Sobreescritura del método paint para permitir que la Pelota se pinte

@@ -3,7 +3,6 @@ package arkanoid;
 import java.awt.Color;
 import java.awt.Graphics;
 
-
 public class Ladrillo extends Actor {
 
 	//Antes era String nombre;
@@ -23,9 +22,11 @@ public class Ladrillo extends Actor {
 	 * @param colores
 	 */
 	public Ladrillo(int x, int y, int alto, int ancho, int numLadrillo, Color colores) {
-		super(x, y, alto, ancho);
+		super(x, y);
 		this.numLadrillo = numLadrillo;
 		this.colores = colores;
+		this.alto = alto;
+		this.ancho = ancho;
 	}
 
 	
@@ -52,6 +53,8 @@ public class Ladrillo extends Actor {
 		// Si colisionamos con un player o un disparo, eliminamos al monstruo
 		if (a instanceof Pelota) {
 			Arkanoid.getInstance().eliminaActor(this);
+			ResourcesCache.getInstance().playSonido("explosion.wav");
+			Arkanoid.getInstance().incorporaNuevoActor(new Explosion(this.x, this.y));
 		}
 	}
 	

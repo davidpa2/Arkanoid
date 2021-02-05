@@ -16,11 +16,12 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-
 public class Arkanoid {
 
 	//Declaración de variables
 	private static int FPS = 60;
+	public static final int ANCHO = 795;
+	public static final int ALTO = 600;
 	private JFrame ventana = null;
 	private List<Actor> actores = new ArrayList<Actor>();
 	private MiCanvas canvas = null;
@@ -45,6 +46,7 @@ public class Arkanoid {
 	}
 
 	public static void main(String[] args) {
+		ResourcesCache.getInstance().cargarRecursosEnMemoria();
 		Arkanoid.getInstance().juego();
 	}
 	
@@ -52,7 +54,7 @@ public class Arkanoid {
 		
 		//Crear la ventana con su formato y un BorderLayout
 		ventana = new JFrame("Arkanoid");
-		ventana.setBounds(0, 0, 800, 600);
+		ventana.setBounds(0, 0, ANCHO, ALTO);
 		ventana.getContentPane().setLayout(new BorderLayout());
 		//Crear una lista con los actores que aparecerán
 		actores = creaActores();
@@ -102,49 +104,49 @@ public class Arkanoid {
 		});	
 	}
 		
-		/**
-		 * Método del juego principal
-		 */
-		public void juego() {
-			// Comienzo un bucle, que consistirá en el juego completo.
-			int millisPorCadaFrame = 1000 / FPS;
+	/**
+	 * Método del juego principal
+	 */
+	public void juego() {
+		// Comienzo un bucle, que consistirá en el juego completo.
+		int millisPorCadaFrame = 1000 / FPS;
 			
-			do {
-				// No sé cuando se va a mostar la ventana y hasta entonces no puedo utilizar la instrucción canvas.requestFocus();
-				// Por tanto, en este bucle compruebo constantemente si el canvas tiene el foco y, si no lo tiene, se lo doy
-				if (ventana.getFocusOwner() != null && !ventana.getFocusOwner().equals(canvas)) {
-					canvas.requestFocus();
-				}
+		do {
+			// No sé cuando se va a mostar la ventana y hasta entonces no puedo utilizar la instrucción canvas.requestFocus();
+			// Por tanto, en este bucle compruebo constantemente si el canvas tiene el foco y, si no lo tiene, se lo doy
+			if (ventana.getFocusOwner() != null && !ventana.getFocusOwner().equals(canvas)) {
+				canvas.requestFocus();
+			}
 				
-				// Redibujo la escena tantas veces por segundo como indique la variable FPS
-				// Tomo los millis actuales
-				long millisAntesDeProcesarEscena = new Date().getTime();
+			// Redibujo la escena tantas veces por segundo como indique la variable FPS
+			// Tomo los millis actuales
+			long millisAntesDeProcesarEscena = new Date().getTime();
 				
-				//Redibujar la escena 60 veces por segundo ya que está en el bucle
-				canvas.pintaEscena();
+			//Redibujar la escena 60 veces por segundo ya que está en el bucle
+			canvas.pintaEscena();
 				
-				for (Actor a : actores) {
-					a.actua();
-				}
+			for (Actor a : actores) {
+				a.actua();
+			}
 				
-				// Tras hacer que cada actor actúe y antes de agregar y eliminar actores, detecto colisiones
-				detectaColisiones();
+			// Tras hacer que cada actor actúe y antes de agregar y eliminar actores, detecto colisiones
+			detectaColisiones();
 				
-				// Acualizo los actores, incorporando los nuevos y eliminando los que ya no se quieren
-				actualizaActores();
+			// Acualizo los actores, incorporando los nuevos y eliminando los que ya no se quieren
+			actualizaActores();
 						
-				// Calculo los millis que debemos parar el proceso, generando 60 FPS.
-				long millisDespuesDeProcesarEscena = new Date().getTime();
-				int millisDeProcesamientoDeEscena = (int) (millisDespuesDeProcesarEscena - millisAntesDeProcesarEscena);
-				int millisPausa = millisPorCadaFrame - millisDeProcesamientoDeEscena;
-				millisPausa = (millisPausa < 0)? 0 : millisPausa;
-				// "Duermo" el proceso principal durante los milllis calculados.
-				try {
-					Thread.sleep(millisPausa);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}	 while (true);
+			// Calculo los millis que debemos parar el proceso, generando 60 FPS.
+			long millisDespuesDeProcesarEscena = new Date().getTime();
+			int millisDeProcesamientoDeEscena = (int) (millisDespuesDeProcesarEscena - millisAntesDeProcesarEscena);
+			int millisPausa = millisPorCadaFrame - millisDeProcesamientoDeEscena;
+			millisPausa = (millisPausa < 0)? 0 : millisPausa;
+			// "Duermo" el proceso principal durante los milllis calculados.
+			try {
+				Thread.sleep(millisPausa);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}	 while (true);
 				
 	}
 	
@@ -157,11 +159,11 @@ public class Arkanoid {
 		List<Actor> actores = new ArrayList<Actor>();
 		
 		//Construyo los distintos actores que hay en el juego
-		Pelota pelota = new Pelota(20, 20, 20, 20, "Manolo el peloto");
+		Pelota pelota = new Pelota(395, 525, 20, 20);
 		actores.add(pelota);
 			
 		//Construir una nave en unas coordenadas y con un tamaño
-		nave = new Nave(400, 525, 50, 10, "Apolo XXXIII");
+		nave = new Nave(400, 540);
 		actores.add(nave);
 		
 		//Array de colores, con el cual cada fila será del color de cada elemento del array
@@ -175,7 +177,7 @@ public class Arkanoid {
 			int xLadrillo = 5;
 			for(int j = 0; j < 14; j++){	
 				//Por cada fila que tiene 14 ladrillos le pasamos la posición de i del array colores[]
-				Ladrillo ladrillo = new Ladrillo(xLadrillo, yLadrillo, 50, 35, i, colores[i]);
+				Ladrillo ladrillo = new Ladrillo(xLadrillo, yLadrillo, 35, 50, i, colores[i]);
 				//Por cada ladrillo sumarle a xLadrillo 55 ya que el ladrillo mide de ancho 50, quedarán distanciados 5px
 				xLadrillo += 55;
 				//Añadir el ladrillo creado a la lista
