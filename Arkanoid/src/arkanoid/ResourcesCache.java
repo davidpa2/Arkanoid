@@ -26,7 +26,7 @@ public class ResourcesCache {
 	// HashMap que actúa como almacén de imágenes
 	private HashMap<String, Object> hmRecursos = new HashMap<String, Object>();
 	// Carpetas en la que se encuentran todos los recursos
-	private String nombreCarpetaParaFile = "./src/arkanoid/resources/";
+	private String nombreCarpetaParaFile = "./Arkanoid/src/arkanoid/resources/";
 	private String nombreCarpetaParaURL = "resources/";
 
 	
